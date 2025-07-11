@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+
+    <link rel="stylesheet" href="./style.css" />
+
+    <script defer src="./script.js"></script>
+
+    <title>Frontend Mentor | E-commerce product page</title>
+  </head>
+
+  <body>
+    <!--application header-->
+    <header class="application-header">
+      <!--menu button on mobile and tablet and application logo-->
+      <div class="logo">
+        <button class="open-menu-button" id="open-menu-button" type="button">
+          <img src="./images/icon-menu.svg" alt="open menu icon" />
+        </button>
+
+        <figure class="application-logo-container">
+          <img src="./images/logo.svg" alt="application logo image" />
+        </figure>
+
+        <!--header navigation - only visible on the desktop-->
+        <nav class="header-navigation">
+          <!--navigation list-->
+          <ul class="navigation-list">
+            <!--navigation item-->
+            <li class="navigation-item">
+              <a href="#" id="nav-link-collections">Collections</a>
+            </li>
+
+            <!--navigation item-->
+            <li class="navigation-item">
+              <a href="#" id="nav-link-men">Men</a>
+            </li>
+
+            <!--navigation item-->
+            <li class="navigation-item">
+              <a href="#" id="nav-link-women">Women</a>
+            </li>
+
+            <!--navigation item-->
+            <li class="navigation-item">
+              <a href="#" id="nav-link-about">About</a>
+            </li>
+
+            <!--navigation item-->
+            <li class="navigation-item">
+              <a href="#" id="nav-link-contact">Contact</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <!--cart and profile-->
+      <div class="cart-and-profile">
+        <button class="cart-button" id="cart-button" type="button">
+          <img src="./images/icon-cart.svg" alt="open cart icon" />
+        </button>
+
+        <figure class="application-avatar-container">
+          <img src="./images/image-avatar.png" alt="avatar image" />
+        </figure>
+      </div>
+    </header>
+
+    <!--divider-->
+    <hr />
+
+    <main>
+      <!--product image - slider on mobile and tablet-->
+      <section class="product-images">
+        <!--navigation arrows-->
+        <div
+          class="navigation-arrows"
+          role="group"
+          aria-label="navigation-arrows-container"
+        >
+          <!--navigation previous arrow-->
+          <button type="button" id="image-prev-button">
+            <span>
+              <img src="./images/icon-previous.svg" alt="previous icon" />
+            </span>
+          </button>
+
+          <!--navigation next arrow-->
+          <button type="button" id="image-next-button">
+            <span>
+              <img src="./images/icon-next.svg" alt="next icon" />
+            </span>
+          </button>
+        </div>
+
+        <!--images-->
+        <ul class="images-list">
+          <!--empty list element to give the list shape - necessary for display-->
+          <li class="images-list--showcase" role="presentation"></li>
+
+          <!--image item-->
+          <li
+            class="product-image-container product-image-container--curr"
+            id="product-image-container-1"
+          >
+            <img
+              class="product-image"
+              src="./images/image-product-1.jpg"
+              alt="product 1 image"
+            />
+          </li>
+
+          <!--image item-->
+          <li
+            class="product-image-container product-image-container--next"
+            id="product-image-container-2"
+          >
+            <img
+              class="product-image"
+              src="./images/image-product-2.jpg"
+              alt="product 2 image"
+            />
+          </li>
+
+          <!--image item-->
+          <li
+            class="product-image-container product-image-container--next"
+            id="product-image-container-3"
+          >
+            <img
+              class="product-image"
+              src="./images/image-product-3.jpg"
+              alt="product 3 image"
+            />
+          </li>
+
+          <!--image item-->
+          <li
+            class="product-image-container product-image-container--next"
+            id="product-image-container-4"
+          >
+            <img
+              class="product-image"
+              src="./images/image-product-4.jpg"
+              alt="product 4 image"
+            />
+          </li>
+        </ul>
+      </section>
+
+      <!--desktop product showcase section - only visible on desktops-->
+      <article class="desktop-product-showcase">
+        <!--showcase-->
+        <figure class="desktop-product-image">
+          <img src="./images/image-product-1.jpg" alt="product 1 image" />
+        </figure>
+
+        <!--thumbnails list-->
+        <ul class="thumbnails-list">
+          <li class="product-thumbnail">
+            <a
+              class="product-thumbnail-link"
+              id="product-thumbnail-link-1"
+              href="?product-thumbnail-link-1"
+            >
+              <img
+                src="./images/image-product-1-thumbnail.jpg"
+                alt="product 1 thumbnail"
+              />
+            </a>
+          </li>
+          <li class="product-thumbnail">
+            <a
+              class="product-thumbnail-link"
+              id="product-thumbnail-link-2"
+              href="?product-thumbnail-link-2"
+            >
+              <img
+                src="./images/image-product-2-thumbnail.jpg"
+                alt="product 2 thumbnail"
+              />
+            </a>
+          </li>
+          <li class="product-thumbnail">
+            <a
+              class="product-thumbnail-link"
+              id="product-thumbnail-link-3"
+              href="?product-thumbnail-link-3"
+            >
+              <img
+                src="./images/image-product-3-thumbnail.jpg"
+                alt="product 3 thumbnail"
+              />
+            </a>
+          </li>
+          <li class="product-thumbnail">
+            <a
+              class="product-thumbnail-link"
+              id="product-thumbnail-link-4"
+              href="?product-thumbnail-link-4"
+            >
+              <img
+                src="./images/image-product-4-thumbnail.jpg"
+                alt="product 4 thumbnail"
+              />
+            </a>
+          </li>
+        </ul>
+      </article>
+
+      <!--product details-->
+      <article class="product-details">
+        <!--product info-->
+        <section class="product-info">
+          <!--product title and company-->
+          <header>
+            <h3 class="company-name">SNEAKER COMPANY</h3>
+
+            <h1 class="product-title">Fall Limited Edition Sneakers</h1>
+          </header>
+
+          <!--product description-->
+          <p class="product-description">
+            These low-profile sneakers are your perfect casual wear companion.
+            Featuring a durable rubber outer sole, they'll withstand everything
+            the weather can offer.
+          </p>
+        </section>
+
+        <!--price section-->
+        <section class="price-section">
+          <!--price and discount-->
+          <div
+            class="price-and-discount"
+            role="group"
+            aria-label="pricing-details"
+          >
+            <p class="discounted-price">$125.00</p>
+
+            <span class="discount-badge"><p>50%</p></span>
+          </div>
+
+          <!--original price-->
+          <del>$250.00</del>
+        </section>
+
+        <!--quantity and add to cart-->
+        <form class="add-to-cart-form">
+          <!--quantity selector-->
+          <section class="quantity-selector">
+            <button class="quantity-button" type="button" id="minus-button">
+              <img src="./images/icon-minus.svg" alt="minus icon" />
+            </button>
+
+            <label for="quantity" id="quantity-label" class="quantity-label"
+              >0</label
+            >
+
+            <input
+              id="quantity"
+              name="quantity-input"
+              class="quantity-input"
+              type="number"
+            />
+
+            <button class="quantity-button" type="button" id="plus-button">
+              <img src="./images/icon-plus.svg" alt="plus icon" />
+            </button>
+          </section>
+
+          <!--add to cart button-->
+          <button type="submit" id="submit-button" class="submit-button">
+            <!--button content container-->
+            <div class="sumbit-button-content-container">
+              <!--cart icon container-->
+              <span class="submit-button-icon-container">
+                <img src="./images/icon-cart.svg" alt="cart icon" />
+              </span>
+
+              <p>Add to cart</p>
+            </div>
+          </button>
+        </form>
+      </article>
+    </main>
+
+    <!--tablet and mobile menu-->
+    <aside class="aside-menu" id="aside-menu">
+      <!--close menu button-->
+      <button type="button" class="close-menu-button" id="close-menu-button">
+        <img src="./images/icon-close.svg" alt="close menu button" />
+      </button>
+
+      <!--navigation-->
+      <nav class="navigation">
+        <!--navigation list-->
+        <ul class="navigation-list">
+          <!--navigation item-->
+          <li class="navigation-item">
+            <a href="#" id="nav-link-collections">Collections</a>
+          </li>
+
+          <!--navigation item-->
+          <li class="navigation-item">
+            <a href="#" id="nav-link-men">Men</a>
+          </li>
+
+          <!--navigation item-->
+          <li class="navigation-item">
+            <a href="#" id="nav-link-women">Women</a>
+          </li>
+
+          <!--navigation item-->
+          <li class="navigation-item">
+            <a href="#" id="nav-link-about">About</a>
+          </li>
+
+          <!--navigation item-->
+          <li class="navigation-item">
+            <a href="#" id="nav-link-contact">Contact</a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!--background filter-->
+    <div class="background-filter" id="background-filter"></div>
+
+    <!--lightbox modal-->
+    <dialog class="lightbox-modal" id="lightbox-modal">
+      <!--navigation arrows-->
+      <div
+        class="navigation-arrows"
+        role="group"
+        aria-label="navigation-arrows-container"
+      >
+        <!--navigation previous arrow-->
+        <button
+          type="button"
+          class="image-prev-button"
+          id="image-prev-button-lightbox"
+        >
+          <img src="./images/icon-minus.svg" alt="minus icon" />
+        </button>
+
+        <!--navigation next arrow-->
+        <button
+          type="button"
+          class="image-next-button"
+          id="image-next-button-lightbox"
+        >
+          <img src="./images/icon-plus.svg" alt="plus icon" />
+        </button>
+      </div>
+
+      <!--lightbox container-->
+      <section class="lightbox-container">
+        <!--close button-->
+        <button class="close-lightbox-button" id="close-lightbox-button">
+          <img src="./images/icon-close.svg" alt="close icon" />
+        </button>
+
+        <!--main imgage-->
+        <figure class="main-image" id="main-image">
+          <img
+            src="./images/image-product-1.jpg"
+            alt="product one main image"
+          />
+        </figure>
+
+        <!--thumbnail container-->
+        <ul class="thumbnails-list thumbnails-list--lightbox">
+          <li class="product-thumbnail">
+            <a
+              class="product-thumbnail-link product-thumbnail-link--lightbox"
+              id="product-thumbnail-link--lightbox-product-1"
+              href="?product-thumbnail-link--lightbox-product-1"
+            >
+              <img
+                src="./images/image-product-1-thumbnail.jpg"
+                alt="product 1 thumbnail"
+              />
+            </a>
+          </li>
+          <li class="product-thumbnail">
+            <a
+              class="product-thumbnail-link product-thumbnail-link--lightbox"
+              id="product-thumbnail-link--lightbox-product-2"
+              href="?product-thumbnail-link--lightbox-product-2"
+            >
+              <img
+                src="./images/image-product-2-thumbnail.jpg"
+                alt="product 2 thumbnail"
+              />
+            </a>
+          </li>
+          <li class="product-thumbnail">
+            <a
+              class="product-thumbnail-link product-thumbnail-link--lightbox"
+              id="product-thumbnail-link--lightbox-product-3"
+              href="?product-thumbnail-link--lightbox-product-3"
+            >
+              <img
+                src="./images/image-product-3-thumbnail.jpg"
+                alt="product 3 thumbnail"
+              />
+            </a>
+          </li>
+          <li class="product-thumbnail">
+            <a
+              class="product-thumbnail-link product-thumbnail-link--lightbox"
+              id="product-thumbnail-link--lightbox-product-4"
+              href="?product-thumbnail-link--lightbox-product-4"
+            >
+              <img
+                src="./images/image-product-4-thumbnail.jpg"
+                alt="product 4 thumbnail"
+              />
+            </a>
+          </li>
+        </ul>
+      </section>
+    </dialog>
+
+    <!--cart modal-->
+    <dialog class="cart-modal">
+      <!--cart title-->
+      <h2 class="cart-title">Cart</h2>
+
+      <!--divider-->
+      <hr />
+
+      <!--cart message-->
+      <p class="cart-message">Your cart is empty.</p>
+    </dialog>
+  </body>
+</html>
