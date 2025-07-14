@@ -37,6 +37,7 @@
   /*text preset 3 - Kumbh Sans Bold/Regular*/
   --text-preset-3-font-size: 16px;
   --text-preset-3-bold-font-weight: 700;
+  --text-preset-3-regular-font-weight: 500;
   --text-preset-3-line-height: 26px;
 
   /*text preset 4 - Kumbh Sans Regular*/
@@ -73,14 +74,14 @@
 
   /*element sizes - mobile first - elements from the design system*/
   /*container widths are static for all mobile screens*/
-  --main-max-width: 37.5rem;
-  --header-max-width: 32.75rem;
-  --logo-max-width: 16.95rem;
-  --cart-and-profile-max-width: 6.8rem;
-  --navigation-arrows-container-max-width: 34.3rem;
-  --product-details-max-width: 32.7rem;
-  --price-and-discount-max-width: 16.6rem;
-  --submit-button-content-container-max-width: 11.946rem;
+  --main-width: 37.5rem;
+  --header-width: 32.75rem;
+  --logo-width: 16.95rem;
+  --cart-and-profile-width: 6.8rem;
+  --navigation-arrows-container-width: 34.3rem;
+  --product-details-width: 32.7rem;
+  --price-and-discount-width: 16.6rem;
+  --submit-button-content-container-width: 11.946rem;
 
   --product-image-height: 30rem;
   --product-image-width: 37.5rem;
@@ -103,6 +104,15 @@
   /*aside menu - mobile and tablet*/
   --aside-menu-width: 25rem;
   --aside-menu-padding: var(--spacing-300);
+
+  /*cart modal*/
+  --cart-modal-width: 36rem;
+  --cart-modal-height: 25.6rem;
+  --cart-header-width: 33.6rem;
+  --cart-item-width: 30.9rem;
+  --cart-checkout-submit-button-width: 31.2rem;
+  --cart-item-image-size: 5rem;
+  --empty-cart-message-height: 9.9rem;
 }
 
 /*default styles*/
@@ -173,7 +183,7 @@ hr {
 /*Application Header/////////////////////////////////////////////*/
 .application-header {
   /*on mobile width is 327.5px*/
-  width: var(--header-max-width);
+  width: var(--header-width);
 
   /*one row flex on mobile - logo and card-and-profile*/
   display: flex;
@@ -189,7 +199,7 @@ hr {
 
 .logo {
   /*on mobile width is 169.5px*/
-  width: var(--logo-max-width);
+  width: var(--logo-width);
 
   /*contains open menu button and application-logo-container - 1 row flex*/
   display: flex;
@@ -207,7 +217,7 @@ hr {
 }
 
 .cart-and-profile {
-  width: var(--cart-and-profile-max-width);
+  width: var(--cart-and-profile-width);
 
   /*1 row flex - contains cart button and application avatar container*/
   display: flex;
@@ -216,7 +226,15 @@ hr {
 }
 
 .cart-button {
+  /*to place the cart prodcut quantity*/
+  position: relative;
+
   width: var(--cart-button-width);
+}
+
+.cart-product-quantity {
+  /*position the container accordingly to the design system*/
+  position: absolute;
 }
 
 .application-avatar-container {
@@ -233,7 +251,7 @@ hr {
 /*Main Content of the Application ///////////////////////////*/
 main {
   /*size*/
-  width: var(--main-max-width);
+  width: var(--main-width);
 
   /*on mobile one col flex*/
   display: flex;
@@ -261,7 +279,7 @@ main {
   z-index: 20;
 
   /*width 343px on mobile*/
-  width: var(--navigation-arrows-container-max-width);
+  width: var(--navigation-arrows-container-width);
 
   /*1 row flex space between*/
   display: flex;
@@ -322,7 +340,7 @@ main {
 /*Product Details Article //////////////////////////////////////*/
 .product-details {
   /*size*/
-  width: var(--product-details-max-width);
+  width: var(--product-details-width);
 
   /*One col flex on mobile*/
   display: flex;
@@ -358,7 +376,7 @@ main {
 }
 
 .price-and-discount {
-  width: var(--price-and-discount-max-width);
+  width: var(--price-and-discount-width);
 
   /*1row flex space between*/
   display: flex;
@@ -404,18 +422,6 @@ main {
   width: var(--quantity-button-width);
 }
 
-.quantity-input {
-  position: absolute;
-  left: 0;
-  top: 0;
-
-  /*hide move out the flow*/
-  height: 0;
-  width: 0;
-
-  opacity: 0;
-}
-
 .submit-button {
   /*center the content*/
   display: flex;
@@ -434,7 +440,7 @@ main {
 }
 
 .sumbit-button-content-container {
-  width: var(--submit-button-content-container-max-width);
+  width: var(--submit-button-content-container-width);
 
   /*1 row flex*/
   display: flex;
@@ -519,13 +525,131 @@ main {
 
 /*/////////////////////////////////////////////////////////////*/
 
+/*cart modal //////////////////////////////////////////////////*/
+.cart-modal {
+  /*most top*/
+  z-index: 100;
+  transform: translateY(9rem);
+
+  /*size - mobile first*/
+  width: var(--cart-modal-width);
+  height: var(--cart-modal-height);
+
+  /*horizontally center on mobile*/
+  margin: 0 auto;
+
+  /*vertically 24px padding on mobile*/
+  padding: var(--spacing-300) 0;
+
+  /*no default border*/
+  border: none;
+  border-radius: var(--radius-125);
+}
+
+.cart-header {
+  /*width 336px on mobile*/
+  width: var(--cart-header-width);
+
+  /*center*/
+  margin: 0 auto;
+
+  /*24px margin bottom on mobile*/
+  margin-bottom: var(--spacing-300);
+}
+
+.cart-divider {
+  display: flex;
+
+  width: 100%;
+
+  border: 1px solid var(--color-grey-100);
+}
+
+.empty-cart-message {
+  height: var(--empty-cart-message-height);
+
+  display: flex;
+  justify-content: center;
+  align-items: end;
+}
+
+.cart-checkout-form {
+  /*1 col flex*/
+  display: flex;
+  flex-direction: column;
+  /*horizontally center items*/
+  align-items: center;
+  /*24px gap on mobile*/
+  gap: var(--spacing-300);
+
+  /*24px padding top on mobile*/
+  padding-top: var(--spacing-300);
+}
+
+.cart-item {
+  /*width 309px on mobile*/
+  width: var(--cart-item-width);
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.cart-item-details {
+  /*1 row flex*/
+  display: flex;
+  /*16px gap on mobile*/
+  gap: var(--spacing-200);
+}
+
+.cart-item-image {
+  width: var(--cart-item-image-size);
+
+  display: flex;
+}
+
+.delete-cart-item-button {
+  width: 1.4rem;
+}
+
+.cart-item-text-group {
+  /*1 col flex*/
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-item-price-container {
+  /*1 row flex*/
+  display: flex;
+  gap: var(--spacing-100);
+}
+
+.cart-checkout-submit-button {
+  /*width 312px on mobile*/
+  width: var(--cart-checkout-submit-button-width);
+
+  /*padding 104px 16px on mobile*/
+  padding: var(--spacing-200) var(--spacing-1300);
+
+  border-radius: var(--radius-125);
+
+  background-color: var(--color-orange-500);
+}
+
+/*////////////////////////////////////////////////////////////*/
+
 /*typography //////////////////////////////////////////////////*/
 /*text preset 3 - Kumbh Sans Bold*/
 .discount-badge p,
 .price-section del,
 .quantity-label,
 .sumbit-button-content-container p,
-.navigation-item a {
+.navigation-item a,
+.cart-header h2,
+.empty-cart-message p,
+.cart-item-text-group h4,
+.cart-item-unit-price,
+.cart-item-total-price,
+.cart-checkout-submit-button {
   font-size: var(--text-preset-3-font-size);
   font-weight: var(--text-preset-3-bold-font-weight);
   line-height: var(--text-preset-3-line-height);
@@ -540,6 +664,18 @@ main {
 .price-section del {
   color: var(--color-grey-500);
   text-decoration: line-through;
+}
+
+.empty-cart-message p {
+  text-align: center;
+  color: var(--color-grey-500);
+}
+
+.cart-item-text-group h4,
+.cart-item-unit-price {
+  /*text preset 3 - Kumbh Sans Regular*/
+  font-weight: var(--text-preset-3-regular-font-weight);
+  color: var(--color-grey-500);
 }
 
 /*text preset 2 - Kumbh Sans☺ Bold*/
@@ -573,18 +709,14 @@ main {
 @media (min-width: 768px) {
   :root {
     /*update mobile static values with clamp for different tablet sizes*/
-    --main-max-width: clamp(60.8rem, 79.16vw, 81.06rem);
-    --header-max-width: clamp(60.8rem, 79.16vw, 81.06rem);
-    --logo-max-width: clamp(17.05rem, 22.2vw, 22.73rem);
-    --cart-and-profile-max-width: clamp(11.98rem, 15.6vw, 15.97rem);
-    --navigation-arrows-container-max-width: clamp(58.3rem, 75.91vw, 77.73rem);
-    --product-details-max-width: clamp(60.8rem, 79.16vw, 81.06rem);
-    --price-and-discount-max-width: clamp(17.3rem, 22.52vw, 23.06rem);
-    --submit-button-content-container-max-width: clamp(
-      12.08rem,
-      15.73vw,
-      16.17rem
-    );
+    --main-width: clamp(60.8rem, 79.16vw, 81.06rem);
+    --header-width: clamp(60.8rem, 79.16vw, 81.06rem);
+    --logo-width: clamp(17.05rem, 22.2vw, 22.73rem);
+    --cart-and-profile-width: clamp(11.98rem, 15.6vw, 15.97rem);
+    --navigation-arrows-container-width: clamp(58.3rem, 75.91vw, 77.73rem);
+    --product-details-width: clamp(60.8rem, 79.16vw, 81.06rem);
+    --price-and-discount-width: clamp(17.3rem, 22.52vw, 23.06rem);
+    --submit-button-content-container-width: clamp(12.08rem, 15.73vw, 16.17rem);
 
     --product-image-height: clamp(29rem, 37.7vw, 38.66rem);
     --product-image-width: clamp(60.8rem, 79.16vw, 81.06rem);
@@ -592,6 +724,17 @@ main {
     --aside-menu-width: clamp(30.1rem, 39.39vw, 40.13rem);
     /*80px 48px padding on tablets*/
     --aside-menu-padding: var(--spacing-600) var(--spacing-1000);
+
+    /*update cart sizes to responsive values for vairous tablet screens*/
+    --cart-modal-width: clamp(36rem, 46.875vw, 48rem);
+    --cart-modal-height: clamp(25.6rem, 33.33vw, 34.13rem);
+    --cart-header-width: clamp(33.6rem, 43.75vw, 44.8rem);
+    --cart-item-width: clamp(30.9rem, 40.23vw, 41.2rem);
+    --cart-checkout-submit-button-width: clamp(31.2rem, 40.625vw, 41.6rem);
+    --cart-item-image-size: clamp(5rem, 0.65vw, 6.66rem);
+    --empty-cart-message-height: clamp(9rem, 11.71vw, 12rem);
+    /*cart responsive horizontal position*/
+    --cart-modal-left: clamp(40rem, 52.08vw, 75rem);
   }
 
   body {
@@ -605,7 +748,7 @@ main {
   }
 
   hr {
-    width: var(--main-max-width);
+    width: var(--main-width);
 
     display: flex;
     border: 1px solid var(--color-grey-100);
@@ -664,7 +807,6 @@ main {
   .quantity-selector {
     /*quantity selector size*/
     width: clamp(29.8rem, 38.8vw, 39.73rem);
-    max-width: 39.73rem;
   }
 
   .submit-button {
@@ -674,17 +816,25 @@ main {
     /*remove margin bottom*/
     margin-bottom: var(--spacing-0);
   }
+
+  .cart-modal {
+    transform: translate(var(--cart-modal-left), 9rem);
+    /*reset margin - no longer positioned at the center*/
+    margin: 0;
+  }
 }
 
 @media (min-width: 1440px) {
   :root {
     /*update the responsive variables for the desktop design*/
-    --header-max-width: clamp(110rem, 77.08vw, 197.3rem);
-    --logo-max-width: clamp(58.95rem, 40.93vw, 104.8rem);
-    --cart-and-profile-max-width: clamp(11.8rem, 8.19vw, 20.97rem);
+    --header-width: clamp(110rem, 77.08vw, 197.3rem);
+    --logo-width: clamp(58.95rem, 40.93vw, 104.8rem);
+    --cart-and-profile-width: clamp(11.8rem, 8.19vw, 20.97rem);
 
-    --main-max-width: clamp(110rem, 77.08vw, 197.3rem);
-    --product-details-max-width: clamp(44.5rem, 30.9vw, 79.11rem);
+    --main-width: clamp(110rem, 77.08vw, 197.3rem);
+    --product-details-width: clamp(44.5rem, 30.9vw, 79.11rem);
+
+    --cart-modal-left: clamp(90rem, 62.5vw, 256rem);
   }
 
   .application-header {
@@ -795,6 +945,11 @@ main {
     /*stop displaying on the desktop*/
     display: none;
   }
+
+  .cart-modal {
+    /*update the vertical position and use the updated responsive variable*/
+    transform: translate(var(--cart-modal-left), 12rem);
+  }
 }
 
 /*//////////////////////////////////////////////////////////////*/
@@ -802,6 +957,18 @@ main {
 /*utility classes ///////////////////////////////////////////////*/
 .hidden {
   display: none;
+}
+
+.invisible-input {
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  /*hide move out the flow*/
+  height: 0;
+  width: 0;
+
+  opacity: 0;
 }
 
 .product-image-container--prev {

@@ -38,27 +38,27 @@
           <ul class="navigation-list">
             <!--navigation item-->
             <li class="navigation-item">
-              <a href="#" id="nav-link-collections">Collections</a>
+              <a href="#" id="header-nav-link-collections">Collections</a>
             </li>
 
             <!--navigation item-->
             <li class="navigation-item">
-              <a href="#" id="nav-link-men">Men</a>
+              <a href="#" id="header-nav-link-men">Men</a>
             </li>
 
             <!--navigation item-->
             <li class="navigation-item">
-              <a href="#" id="nav-link-women">Women</a>
+              <a href="#" id="header-nav-link-women">Women</a>
             </li>
 
             <!--navigation item-->
             <li class="navigation-item">
-              <a href="#" id="nav-link-about">About</a>
+              <a href="#" id="header-nav-link-about">About</a>
             </li>
 
             <!--navigation item-->
             <li class="navigation-item">
-              <a href="#" id="nav-link-contact">Contact</a>
+              <a href="#" id="header-nav-link-contact">Contact</a>
             </li>
           </ul>
         </nav>
@@ -66,10 +66,18 @@
 
       <!--cart and profile-->
       <div class="cart-and-profile">
+        <!--toggle cart modal button-->
         <button class="cart-button" id="cart-button" type="button">
+          <!--product quantity-->
+          <span class="cart-product-quantity">
+            <p id="product-quantity"></p>
+          </span>
+
+          <!--cart icon-->
           <img src="./images/icon-cart.svg" alt="open cart icon" />
         </button>
 
+        <!--user avatar icon-->
         <figure class="application-avatar-container">
           <img src="./images/image-avatar.png" alt="avatar image" />
         </figure>
@@ -168,52 +176,55 @@
         <!--thumbnails list-->
         <ul class="thumbnails-list">
           <li class="product-thumbnail">
-            <a
+            <button
               class="product-thumbnail-link"
               id="product-thumbnail-link-1"
-              href="?product-thumbnail-link-1"
+              type="button"
             >
               <img
                 src="./images/image-product-1-thumbnail.jpg"
                 alt="product 1 thumbnail"
               />
-            </a>
+            </button>
           </li>
+
           <li class="product-thumbnail">
-            <a
+            <button
               class="product-thumbnail-link"
               id="product-thumbnail-link-2"
-              href="?product-thumbnail-link-2"
+              type="button"
             >
               <img
                 src="./images/image-product-2-thumbnail.jpg"
                 alt="product 2 thumbnail"
               />
-            </a>
+            </button>
           </li>
+
           <li class="product-thumbnail">
-            <a
+            <button
               class="product-thumbnail-link"
               id="product-thumbnail-link-3"
-              href="?product-thumbnail-link-3"
+              type="button"
             >
               <img
                 src="./images/image-product-3-thumbnail.jpg"
                 alt="product 3 thumbnail"
               />
-            </a>
+            </button>
           </li>
+
           <li class="product-thumbnail">
-            <a
+            <button
               class="product-thumbnail-link"
               id="product-thumbnail-link-4"
-              href="?product-thumbnail-link-4"
+              type="button"
             >
               <img
                 src="./images/image-product-4-thumbnail.jpg"
                 alt="product 4 thumbnail"
               />
-            </a>
+            </button>
           </li>
         </ul>
       </article>
@@ -245,17 +256,18 @@
             role="group"
             aria-label="pricing-details"
           >
-            <p class="discounted-price">$125.00</p>
+            <p class="discounted-price" id="discounted-price">$125.00</p>
 
+            <!--discount container-->
             <span class="discount-badge"><p>50%</p></span>
           </div>
 
           <!--original price-->
-          <del>$250.00</del>
+          <del id="original-price">$250.00</del>
         </section>
 
         <!--quantity and add to cart-->
-        <form class="add-to-cart-form">
+        <form class="add-to-cart-form" id="add-to-cart-form">
           <!--quantity selector-->
           <section class="quantity-selector">
             <button class="quantity-button" type="button" id="minus-button">
@@ -263,13 +275,13 @@
             </button>
 
             <label for="quantity" id="quantity-label" class="quantity-label"
-              >0</label
+              >1</label
             >
 
             <input
-              id="quantity"
+              id="quantity-input"
               name="quantity-input"
-              class="quantity-input"
+              class="invisible-input"
               type="number"
             />
 
@@ -381,67 +393,135 @@
         <!--thumbnail container-->
         <ul class="thumbnails-list thumbnails-list--lightbox">
           <li class="product-thumbnail">
-            <a
-              class="product-thumbnail-link product-thumbnail-link--lightbox"
-              id="product-thumbnail-link--lightbox-product-1"
-              href="?product-thumbnail-link--lightbox-product-1"
+            <button
+              class="product-thumbnail-button product-thumbnail-button--lightbox"
+              id="product-thumbnail-button--lightbox-product-1"
+              type="button"
             >
               <img
                 src="./images/image-product-1-thumbnail.jpg"
                 alt="product 1 thumbnail"
               />
-            </a>
+            </button>
           </li>
+
           <li class="product-thumbnail">
-            <a
-              class="product-thumbnail-link product-thumbnail-link--lightbox"
-              id="product-thumbnail-link--lightbox-product-2"
-              href="?product-thumbnail-link--lightbox-product-2"
+            <button
+              class="product-thumbnail-button product-thumbnail-button--lightbox"
+              id="product-thumbnail-button--lightbox-product-2"
+              type="button"
             >
               <img
                 src="./images/image-product-2-thumbnail.jpg"
                 alt="product 2 thumbnail"
               />
-            </a>
+            </button>
           </li>
+
           <li class="product-thumbnail">
-            <a
-              class="product-thumbnail-link product-thumbnail-link--lightbox"
-              id="product-thumbnail-link--lightbox-product-3"
-              href="?product-thumbnail-link--lightbox-product-3"
+            <button
+              class="product-thumbnail-button product-thumbnail-button--lightbox"
+              id="product-thumbnail-button--lightbox-product-3"
+              type="button"
             >
               <img
                 src="./images/image-product-3-thumbnail.jpg"
                 alt="product 3 thumbnail"
               />
-            </a>
+            </button>
           </li>
+
           <li class="product-thumbnail">
-            <a
-              class="product-thumbnail-link product-thumbnail-link--lightbox"
-              id="product-thumbnail-link--lightbox-product-4"
-              href="?product-thumbnail-link--lightbox-product-4"
+            <button
+              class="product-thumbnail-button product-thumbnail-button--lightbox"
+              id="product-thumbnail-button--lightbox-product-4"
+              type="button"
             >
               <img
                 src="./images/image-product-4-thumbnail.jpg"
                 alt="product 4 thumbnail"
               />
-            </a>
+            </button>
           </li>
         </ul>
       </section>
     </dialog>
 
     <!--cart modal-->
-    <dialog class="cart-modal">
-      <!--cart title-->
-      <h2 class="cart-title">Cart</h2>
+    <dialog class="cart-modal" id="cart-modal">
+      <!--cart header-->
+      <header class="cart-header">
+        <h2>Cart</h2>
+      </header>
 
       <!--divider-->
-      <hr />
+      <hr class="cart-divider" />
 
-      <!--cart message-->
-      <p class="cart-message">Your cart is empty.</p>
+      <!--empty cart-->
+      <div id="empty-cart-message" class="empty-cart-message">
+        <p>Your cart is empty</p>
+      </div>
+
+      <!--filled cart-->
+      <form
+        method="dialog"
+        class="cart-checkout-form hidden"
+        id="cart-checkout-form"
+      >
+        <!--cart item-->
+        <article class="cart-item">
+          <!--cart item details-->
+          <label class="cart-item-details" for="cart-item-label">
+            <!--cart item image-->
+            <figure class="cart-item-image">
+              <img
+                src="./images/image-product-1-thumbnail.jpg"
+                alt="product 1 thumbnail"
+              />
+            </figure>
+
+            <!--cart item text container-->
+            <section class="cart-item-text-group">
+              <!--cart item title-->
+              <h4>Fall Limited Edition Sneakers</h4>
+
+              <!--cart item price container-->
+              <div class="cart-item-price-container">
+                <!--unit price-->
+                <p class="cart-item-unit-price">
+                  $125.00 x <span id="cart-item-quantity">3</span>
+                </p>
+
+                <!--total price-->
+                <p class="cart-item-total-price" id="cart-item-total-price">
+                  $375.00
+                </p>
+              </div>
+            </section>
+          </label>
+
+          <!--invisible input - value final total price-->
+          <input type="text" class="invisible-input" id="cart-item-input" />
+
+          <!--delete icon-->
+          <button
+            type="button"
+            class="delete-cart-item-button"
+            id="delete-cart-item-button"
+          >
+            <img src="images/icon-delete.svg" alt="delete icon" />
+          </button>
+        </article>
+
+        <!--checkout submit button-->
+        <button
+          type="submit"
+          class="cart-checkout-submit-button"
+          id="cart-checkout-submit-button"
+        >
+          Checkout
+        </button>
+      </form>
     </dialog>
   </body>
 </html>

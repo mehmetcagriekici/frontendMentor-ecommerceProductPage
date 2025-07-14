@@ -12,3 +12,9 @@
 
 5. CSS Units
    https://www.w3schools.com/cssref/css_units.php
+
+6. parseFloat()
+   https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseFloat
+
+7. ARIA: aria-modal
+   https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-modal
