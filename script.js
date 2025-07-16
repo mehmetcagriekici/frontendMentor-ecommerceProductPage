@@ -22,13 +22,47 @@ const increaseQuantityButton = document.getElementById("plus-button");
 
 //cart
 const toggleCartButton = document.getElementById("cart-button");
-const cartIconQuantity = document.getElementById("product-quantity");
+const cartIconQuantityContainer = document.getElementById(
+  "cart-product-quantity-container"
+);
+const cartIconQuantity = document.getElementById("cart-product-quantity");
 const cartModal = document.getElementById("cart-modal");
 const cartCheckoutForm = document.getElementById("cart-checkout-form");
 const emptyCartMessage = document.getElementById("empty-cart-message");
 const cartItemQuantity = document.getElementById("cart-item-quantity");
 const cartItemTotalPrice = document.getElementById("cart-item-total-price");
 const deleteCartItemButton = document.getElementById("delete-cart-item-button");
+
+//avatar
+const avatar = document.getElementById("application-avatar");
+
+//desktop product showcase
+const desktopShowcaseImage = document.getElementById(
+  "current-desktop-product-image"
+);
+const desktopThumbnailsList = document.getElementById(
+  "desktop-thumbnails-list"
+);
+const desktopThumbnailButtons = document.querySelectorAll(
+  ".product-thumbnail-button"
+);
+const desktopThumbnailImages = document.querySelectorAll(
+  ".product-thumbnail-image"
+);
+
+//lightbox
+const lightboxModal = document.getElementById("lightbox-modal");
+const lightboxPreviousImageButton = document.getElementById(
+  "image-prev-button--lightbox"
+);
+const lightboxNextImageButton = document.getElementById(
+  "image-next-button--lightbox"
+);
+const closeLightboxButton = document.getElementById("close-lightbox-button");
+const lightboxMainImage = document.getElementById("lightbox-main-image");
+const lightboxThumbnailsList = document.getElementById(
+  "lightbox-thumbnails-list"
+);
 
 //app state
 const state = {
@@ -38,6 +72,9 @@ const state = {
   showCartModal: false,
   unitPrice: 125,
 };
+
+//init
+document.addEventListener("load", init);
 
 //event listeners
 openMenuButton.addEventListener("click", openMenu);
@@ -54,7 +91,18 @@ toggleCartButton.addEventListener("click", toggleCartModal);
 deleteCartItemButton.addEventListener("click", emptyCart);
 cartCheckoutForm.addEventListener("submit", submitCheckout);
 
-//callback functions
+//click event on the buttons with event delegation
+desktopThumbnailsList.addEventListener("click", updateShowcaseImage);
+
+//clickevent on the desktop showcase image to open the lightbox
+desktopShowcaseImage.addEventListener("click", openLightbox);
+closeLightboxButton.addEventListener("click", closeLightbox);
+
+/**
+ * init function, initiates the components
+ */
+function init() {}
+
 /**
  * function to open navigation menu and display background filter
  * runs only on mobile and tablet devices when clicked on the open menu button
@@ -89,7 +137,7 @@ function goPrevProductImage() {
     state.currentProductImageIndex--;
   }
 
-  //distribute the sliding classes after the index update
+  //distribute the sliding classes after the index update for mobile and tablets
   slideProductImages();
 }
 
@@ -101,7 +149,7 @@ function goNextProductImage() {
   state.currentProductImageIndex =
     (state.currentProductImageIndex + 1) % productImages.length;
 
-  //distribute the sliding classes after the index update
+  //distribute the sliding classes after the index update for mobile and tablets
   slideProductImages();
 }
 
@@ -240,11 +288,28 @@ function submitQuantity(event) {
   emptyCartMessage.classList.add("hidden");
 
   //update the checkout form fields
-  cartItemQuantity.innerText = state.productQuantity;
-  cartItemTotalPrice.innerText = `$${state.unitPrice * state.productQuantity}`;
+  cartItemQuantity.innerText =
+    parseInt(cartItemQuantity.innerText) + state.productQuantity;
+
+  cartItemTotalPrice.innerText = `$${(
+    parseInt(cartItemTotalPrice.innerText.trim().slice(1)) +
+    state.unitPrice * state.productQuantity
+  ).toFixed(2)}`;
+
+  cartIconQuantity.innerText =
+    parseInt(cartIconQuantity.innerText) + state.productQuantity;
 
   //show the cart checkout form - start displaying it
   cartCheckoutForm.classList.remove("hidden");
+  cartIconQuantityContainer.classList.remove("hidden");
+
+  //add orange border to the avatar
+  avatar.classList.add("application-avatar-active");
+
+  //reset the product quantity
+  state.productQuantity = 1;
+
+  displayProductQuantity();
 }
 
 /**
@@ -265,28 +330,276 @@ function toggleCartModal() {
 
 /**
  * function to empty the cart
- * hide the checkout form
- * display the empty cart message
+ * reset the app values
+ * reset the cart
+ * reset state
  */
 function emptyCart() {
+  //reset the cart
+  cartItemQuantity.innerText = "0";
+  cartItemTotalPrice.innerText = "$0";
+
+  //reset the cart quantity icon
+  cartIconQuantity.innerText = "0";
+
+  //hide the cart formi display the empty message
   cartCheckoutForm.classList.add("hidden");
   emptyCartMessage.classList.remove("hidden");
-}
 
-/**
- * function to submit the checkout form
- * empty the cart
- * reset the app state
- * re-display the product quantity
- */
-function submitCheckout() {
-  emptyCart();
+  //hide the cart quantity icon
+  cartIconQuantityContainer.classList.add("hidden");
+
+  //remove the active class from the avatar
+  avatar.classList.remove("application-avatar-active");
 
   state.currentProductImageIndex = 0;
   state.productQuantity = 1;
   state.originalPrice = 250;
   state.showCartModal = false;
   state.unitPrice = 125;
+}
+
+/**
+ * function to submit the checkout form
+ * empty the cart
+ * re-display the product quantity
+ */
+function submitCheckout() {
+  emptyCart();
 
   displayProductQuantity();
+}
+
+/**
+ * function to change the current showcase image on desktops using event delegation on the thumbnails list
+ * @param event - click event on the thumbnails list
+ */
+function updateShowcaseImage(event) {
+  //guard clause for the elements except for images
+  if (event.target.tagName !== "IMG") return;
+
+  //get the clicked thumbnail id
+  //example: product-thumbnail-desktop-image-1
+  const currentThumbnailIndex = event.target.id.slice(-1);
+
+  //update the current showcase image src and alt
+  desktopShowcaseImage.setAttribute(
+    "src",
+    `./images/image-product-${currentThumbnailIndex}.jpg`
+  );
+
+  desktopShowcaseImage.setAttribute(
+    "alt",
+    `product image ${currentThumbnailIndex}`
+  );
+
+  //update the thumbnail (button and the image) classes
+  //loop over the thumbnils
+  for (let i = 0; i < desktopThumbnailButtons.length; i++) {
+    //currentThumbnailIndex starts at one
+    if (i === currentThumbnailIndex - 1) {
+      //give active class to the selected thumbnail
+      desktopThumbnailButtons[i].classList.add(
+        "product-thumbnail-button--active"
+      );
+
+      //give active class to the selected image
+      desktopThumbnailImages[i].classList.add(
+        "product-thumbnail-image--active"
+      );
+    } else {
+      //remove the active classes
+      desktopThumbnailButtons[i].classList.remove(
+        "product-thumbnail-button--active"
+      );
+
+      desktopThumbnailImages[i].classList.remove(
+        "product-thumbnail-image--active"
+      );
+    }
+  }
+}
+
+/**
+ * function to open the lightbox modal
+ */
+function openLightbox() {
+  //open the background filter
+  backgroundFilter.classList.add("background-filter--open");
+
+  //show modal
+  lightboxModal.show();
+
+  //remove hidden class from the modal
+  lightboxModal.classList.remove("hidden");
+}
+
+/**
+ * function to close the lightbox modal
+ */
+function closeLightbox() {
+  //close the background filter
+  backgroundFilter.classList.remove("background-filter--open");
+
+  //close the modal
+  lightboxModal.close();
+
+  //add hidden class to the modal
+  lightboxModal.classList.add("hidden");
+}
+
+//Components
+//repeatedly used HTML components
+
+/**
+ * ThumbnailsList component is used on the desktop and the desktop lightbox
+ */
+function ThumbnailsList() {
+  return `
+    <!--thumbnails list-->
+    <ul class="thumbnails-list" id="desktop-thumbnails-list">
+      <!--desktop thumbnail element-->
+      <li class="product-thumbnail">
+        <button
+          class="product-thumbnail-buttoproduct-thumbnail-button--active"
+          id="product-thumbnail-desktop-button-1"
+          type="button"
+        >
+          <img
+            src="./images/image-product-1-thumbnail.jpg"
+            alt="product 1 thumbnail"
+            id="product-thumbnail-desktop-image-1"
+            class="product-thumbnail-imagproduct-thumbnail-image--active"
+          />
+        </button>
+      </li>
+
+      <!--desktop thumbnail element-->
+      <li class="product-thumbnail">
+        <button
+          class="product-thumbnail-button"
+          id="product-thumbnail-desktop-button-2"
+          type="button"
+        >
+          <img
+            src="./images/image-product-2-thumbnail.jpg"
+            alt="product 2 thumbnail"
+            id="product-thumbnail-desktop-image-2"
+            class="product-thumbnail-image"
+           />
+        </button>
+      </li>
+
+      <!--desktop thumbnail element-->
+      <li class="product-thumbnail">
+        <button
+          class="product-thumbnail-button"
+          id="product-thumbnail-desktop-button-3"
+          type="button"
+        >
+          <img
+            src="./images/image-product-3-thumbnail.jpg"
+            alt="product 3 thumbnail"
+            id="product-thumbnail-image-3"
+            class="product-thumbnail-desktop-image"
+          />
+        </button>
+      </li>
+
+      <!--desktop thumbnail element-->
+      <li class="product-thumbnail">
+        <button
+          class="product-thumbnail-button"
+          id="product-thumbnail-desktop-button-4"
+          type="button"
+        >
+          <img
+            src="./images/image-product-4-thumbnail.jpg"
+            alt="product 4 thumbnail"
+            id="product-thumbnail-desktop-image-4"
+            class="product-thumbnail-image"
+          />
+        </button>
+      </li>
+    </ul>
+  `;
+}
+
+/**
+ * NavigationList component used on the header on the desktop and on the aside menu on mobile and tablets
+ * Totally presentational on this app
+ */
+function NavigationList() {
+  return `
+    <!--navigation list-->
+    <ul class="navigation-list">
+      <!--navigation item-->
+      <li class="navigation-item">
+        <a href="#" id="header-nav-link-collections">Collections</a>
+      </li>
+
+      <!--navigation item-->
+      <li class="navigation-item">
+        <a href="#" id="header-nav-link-men">Men</a>
+      </li>
+
+      <!--navigation item-->
+      <li class="navigation-item">
+        <a href="#" id="header-nav-link-women">Women</a>
+      </li>
+
+      <!--navigation item-->
+      <li class="navigation-item">
+        <a href="#" id="header-nav-link-about">About</a>
+      </li>
+
+      <!--navigation item-->
+      <li class="navigation-item">
+        <a href="#" id="header-nav-link-contact">Contact</a>
+      </li>
+    </ul>
+  `;
+}
+
+/**
+ * NavigationArrows component is used on mobile and tablets as the main image slider, and used on desktop on lightbox image slider
+ * positioned absoulute and centered vertically to the parent element
+ */
+function NavigationArrows() {
+  return `
+    <!--navigation arrows-->
+    <div
+      class="navigation-arrows"
+      role="group"
+      aria-label="navigation-arrows-container"
+    >
+      <!--navigation previous arrow-->
+      <button
+        type="button"
+        id="image-prev-button"
+        class="navigation-arrows-button"
+      >
+        <span
+           class="navigation-arrows-button-iconavigation-arrows-button-icon--previous"
+           role="img"
+           aria-label="previous-button-icon"
+        >
+         </span>
+       </button>
+
+      <!--navigation next arrow-->
+      <button
+        type="button"
+        id="image-next-button"
+        class="navigation-arrows-button"
+      >
+        <span
+          class="navigation-arrows-button-iconavigation-arrows-button-icon--next"
+          role="img"
+          aria-label="next-button-icon"
+        >
+        </span>
+      </button>
+    </div>
+  `;
 }
