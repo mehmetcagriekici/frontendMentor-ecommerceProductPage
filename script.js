@@ -8,8 +8,8 @@ const closeMenuButton = document.getElementById("close-menu-button");
 const backgroundFilter = document.getElementById("background-filter");
 
 //mobile/tablet image slider related elements
-const previousImageButton = document.getElementById("image-prev-button");
-const nextImageButton = document.getElementById("image-next-button");
+const previousImageButton = document.getElementById("image-prev-button-screen");
+const nextImageButton = document.getElementById("image-next-button-screen");
 const productImages = document.querySelectorAll(".product-image-container");
 
 //pricing
@@ -44,44 +44,49 @@ const desktopThumbnailsList = document.getElementById(
   "desktop-thumbnails-list"
 );
 const desktopThumbnailButtons = document.querySelectorAll(
-  ".product-thumbnail-button"
+  ".desktop-product-thumbnail-button"
 );
 const desktopThumbnailImages = document.querySelectorAll(
-  ".product-thumbnail-image"
+  ".desktop-product-thumbnail-image"
 );
 
 //lightbox
 const lightboxModal = document.getElementById("lightbox-modal");
+const closeLightboxButton = document.getElementById("close-lightbox-button");
 const lightboxPreviousImageButton = document.getElementById(
-  "image-prev-button--lightbox"
+  "image-prev-button-lightbox"
 );
 const lightboxNextImageButton = document.getElementById(
-  "image-next-button--lightbox"
+  "image-next-button-lightbox"
 );
-const closeLightboxButton = document.getElementById("close-lightbox-button");
-const lightboxMainImage = document.getElementById("lightbox-main-image");
 const lightboxThumbnailsList = document.getElementById(
   "lightbox-thumbnails-list"
+);
+const lightboxThumbnailButtons = document.querySelectorAll(
+  ".lightbox-product-thumbnail-button"
+);
+const lightboxThumbnailImages = document.querySelectorAll(
+  ".lightbox-product-thumbnail-image"
 );
 
 //app state
 const state = {
-  currentProductImageIndex: 0,
+  currentImageIndex: 0,
   productQuantity: 1,
   originalPrice: 250,
   showCartModal: false,
   unitPrice: 125,
 };
 
-//init
-document.addEventListener("load", init);
-
 //event listeners
 openMenuButton.addEventListener("click", openMenu);
 closeMenuButton.addEventListener("click", closeMenu);
 
-previousImageButton.addEventListener("click", goPrevProductImage);
-nextImageButton.addEventListener("click", goNextProductImage);
+lightboxPreviousImageButton.addEventListener("click", goPreviousImage);
+nextImageButton.addEventListener("click", goNextImage);
+
+previousImageButton.addEventListener("click", goPreviousImage);
+lightboxNextImageButton.addEventListener("click", goNextImage);
 
 decreaseQuantityButton.addEventListener("click", decreaseQuantity);
 increaseQuantityButton.addEventListener("click", increaseQuantity);
@@ -91,17 +96,13 @@ toggleCartButton.addEventListener("click", toggleCartModal);
 deleteCartItemButton.addEventListener("click", emptyCart);
 cartCheckoutForm.addEventListener("submit", submitCheckout);
 
-//click event on the buttons with event delegation
-desktopThumbnailsList.addEventListener("click", updateShowcaseImage);
+//click event on the thumbnails lists desktop/lightbox with event delegation for the thumbnail images
+desktopThumbnailsList.addEventListener("click", swapImage);
+lightboxThumbnailsList.addEventListener("click", swapImage);
 
 //clickevent on the desktop showcase image to open the lightbox
 desktopShowcaseImage.addEventListener("click", openLightbox);
 closeLightboxButton.addEventListener("click", closeLightbox);
-
-/**
- * init function, initiates the components
- */
-function init() {}
 
 /**
  * function to open navigation menu and display background filter
@@ -127,42 +128,74 @@ function closeMenu() {
 
 /**
  * function to display the previous image
+ * @param event - click on the arrow buttons on mobile, tablet and the desktop lightbox
  */
-function goPrevProductImage() {
+function goPreviousImage(event) {
   //if the currentProductImage index reaches zero -> currentProduct image index = productImages (node list) .length - 1
-  if (state.currentProductImageIndex === 0) {
-    state.currentProductImageIndex = productImages.length - 1;
+  if (state.currentImageIndex === 0) {
+    state.currentImageIndex = productImages.length - 1;
   } else {
-    //decrease the currentProductImageIndex by one
-    state.currentProductImageIndex--;
+    //decrease the currentImageIndex by one
+    state.currentImageIndex--;
   }
 
-  //distribute the sliding classes after the index update for mobile and tablets
-  slideProductImages();
+  //get the type of the arrow button, lightbox/screen(used on mobile and tablet)
+  const arrowType = event.target.id.split("-").at(-1);
+
+  if (arrowType === "screen") {
+    //distribute the sliding classes after the index update for mobile and tablets
+    slideImage();
+  }
+
+  if (arrowType === "lightbox") {
+    //update the lightbox showcase image with state.currentIndex
+    swapDistributor(
+      state.currentImageIndex + 1, //starts at 0
+      "current-lightbox-product-image",
+      lightboxThumbnailButtons,
+      lightboxThumbnailImages
+    );
+  }
 }
 
 /**
  * function to display the next image
+ * @param event - click on the arrow buttons on mobile, tablet and the desktop lightbox
  */
-function goNextProductImage() {
+function goNextImage(event) {
   //increase the currentProductIndex
-  state.currentProductImageIndex =
-    (state.currentProductImageIndex + 1) % productImages.length;
+  state.currentImageIndex =
+    (state.currentImageIndex + 1) % productImages.length;
 
-  //distribute the sliding classes after the index update for mobile and tablets
-  slideProductImages();
+  //get the type of the arrow button, lightbox/screen(used on mobile and tablet)
+  const arrowType = event.target.id.split("-").at(-1);
+
+  if (arrowType === "screen") {
+    //distribute the sliding classes after the index update for mobile and tablets
+    slideImage();
+  }
+
+  if (arrowType === "lightbox") {
+    //update the lightbox showcase image with state.currentIndex
+    swapDistributor(
+      state.currentImageIndex + 1, //starts at 0
+      "current-lightbox-product-image",
+      lightboxThumbnailButtons,
+      lightboxThumbnailImages
+    );
+  }
 }
 
 /**
- * function to distribute the productImages classes
+ * function to slide the images using navigation arrows on mobile, tablet, and the desktop lightbox
  * loop over the node list
  * give the images product-image-container--prev class if their indexes are smaller than the current index
  * give the current image product-image-container--curr class
  * give the images product-image-container--next class if their indexes are bigger than the current index
  */
-function slideProductImages() {
+function slideImage() {
   for (let i = 0; i < productImages.length; i++) {
-    if (i < state.currentProductImageIndex) {
+    if (i < state.currentImageIndex) {
       //remove the current class if contains
       productImages[i].classList.remove("product-image-container--curr");
 
@@ -176,7 +209,7 @@ function slideProductImages() {
       continue;
     }
 
-    if (i > state.currentProductImageIndex) {
+    if (i > state.currentImageIndex) {
       //remove the current class if contains
       productImages[i].classList.remove("product-image-container--curr");
 
@@ -190,7 +223,7 @@ function slideProductImages() {
       continue;
     }
 
-    if (i === state.currentProductImageIndex) {
+    if (i === state.currentImageIndex) {
       //remove the previous class if contains
       productImages[i].classList.remove("product-image-container--prev");
 
@@ -352,7 +385,8 @@ function emptyCart() {
   //remove the active class from the avatar
   avatar.classList.remove("application-avatar-active");
 
-  state.currentProductImageIndex = 0;
+  //reset tbe state
+  state.currentImageIndex = 0;
   state.productQuantity = 1;
   state.originalPrice = 250;
   state.showCartModal = false;
@@ -371,61 +405,108 @@ function submitCheckout() {
 }
 
 /**
- * function to change the current showcase image on desktops using event delegation on the thumbnails list
+ * function to swap the images using thumbnails list, on desktop and the desktop lightbox
+ * gets thumbnail information passes it to the swap distributor function
  * @param event - click event on the thumbnails list
  */
-function updateShowcaseImage(event) {
+function swapImage(event) {
   //guard clause for the elements except for images
   if (event.target.tagName !== "IMG") return;
 
   //get the clicked thumbnail id
-  //example: product-thumbnail-desktop-image-1
-  const currentThumbnailIndex = event.target.id.slice(-1);
+  //example desktop: product-thumbnail-desktop-1
+  //example lightbox: product-thumbnail-lightbox-1
+  const [currentThumbnailType, currentThumbnailIndex] = event.target.id
+    .split("-")
+    .slice(-2);
+
+  //pass the desktop thumbnails images/buttons node lists
+  if (currentThumbnailType === "desktop") {
+    swapDistributor(
+      currentThumbnailIndex,
+      "current-desktop-product-image",
+      desktopThumbnailButtons,
+      desktopThumbnailImages
+    );
+  }
+
+  //pass the lightbox thumbnails images/buttons node lists
+  if (currentThumbnailType === "lightbox") {
+    swapDistributor(
+      currentThumbnailIndex,
+      "current-lightbox-product-image",
+      lightboxThumbnailButtons,
+      lightboxThumbnailImages
+    );
+  }
+}
+
+/**
+ * function to visually swap the image
+ * used for desktop thumbnails and the lightbox thumbnails
+ * @param currentThumbnailIndex - index of the current thumbnail image, starting from 1, provided by the swapImage function
+ * @param showCaseImageId - id of the showcase image of the desktop/lightbox showcase image provided by the swapImage function
+ * @param thumbnailButtons - nodelist for the buttons desktop/lightbox provided by the swapImage function depending on the current thumbnail type
+ * @param thumbnailImages - nodelist for the images desktop/lightbox provided by the swapImage function depending on the current thumbnail type
+ */
+function swapDistributor(
+  currentThumbnailIndex,
+  showcaseImageId,
+  thumbnailButtons,
+  thumbnailImages
+) {
+  //select the showcaseImage using the provided id
+  const showcaseImage = document.getElementById(showcaseImageId);
 
   //update the current showcase image src and alt
-  desktopShowcaseImage.setAttribute(
+  showcaseImage.setAttribute(
     "src",
     `./images/image-product-${currentThumbnailIndex}.jpg`
   );
 
-  desktopShowcaseImage.setAttribute(
-    "alt",
-    `product image ${currentThumbnailIndex}`
-  );
+  showcaseImage.setAttribute("alt", `product image ${currentThumbnailIndex}`);
 
   //update the thumbnail (button and the image) classes
   //loop over the thumbnils
-  for (let i = 0; i < desktopThumbnailButtons.length; i++) {
+  for (let i = 0; i < thumbnailButtons.length; i++) {
     //currentThumbnailIndex starts at one
     if (i === currentThumbnailIndex - 1) {
       //give active class to the selected thumbnail
-      desktopThumbnailButtons[i].classList.add(
-        "product-thumbnail-button--active"
-      );
+      thumbnailButtons[i].classList.add("product-thumbnail-button--active");
 
       //give active class to the selected image
-      desktopThumbnailImages[i].classList.add(
-        "product-thumbnail-image--active"
-      );
+      thumbnailImages[i].classList.add("product-thumbnail-image--active");
     } else {
       //remove the active classes
-      desktopThumbnailButtons[i].classList.remove(
-        "product-thumbnail-button--active"
-      );
+      thumbnailButtons[i].classList.remove("product-thumbnail-button--active");
 
-      desktopThumbnailImages[i].classList.remove(
-        "product-thumbnail-image--active"
-      );
+      thumbnailImages[i].classList.remove("product-thumbnail-image--active");
     }
   }
 }
 
 /**
  * function to open the lightbox modal
+ * @param event - click on the desktop showcase image
  */
-function openLightbox() {
+function openLightbox(event) {
   //open the background filter
   backgroundFilter.classList.add("background-filter--open");
+
+  //get the showcase image index from the alt value
+  //example: product image 1
+  const showcaseImageAltIndex = event.target.alt.slice(-1);
+
+  //update the state.currentImageIndex for lightbox arrow navigation
+  state.currentImageIndex = showcaseImageAltIndex - 1;
+
+  //update the lighbox content with the current image
+  swapDistributor(
+    state.currentImageIndex + 1, //starts at 0
+    "current-lightbox-product-image",
+    lightboxThumbnailButtons,
+    lightboxThumbnailImages
+  );
 
   //show modal
   lightboxModal.show();
@@ -446,160 +527,4 @@ function closeLightbox() {
 
   //add hidden class to the modal
   lightboxModal.classList.add("hidden");
-}
-
-//Components
-//repeatedly used HTML components
-
-/**
- * ThumbnailsList component is used on the desktop and the desktop lightbox
- */
-function ThumbnailsList() {
-  return `
-    <!--thumbnails list-->
-    <ul class="thumbnails-list" id="desktop-thumbnails-list">
-      <!--desktop thumbnail element-->
-      <li class="product-thumbnail">
-        <button
-          class="product-thumbnail-buttoproduct-thumbnail-button--active"
-          id="product-thumbnail-desktop-button-1"
-          type="button"
-        >
-          <img
-            src="./images/image-product-1-thumbnail.jpg"
-            alt="product 1 thumbnail"
-            id="product-thumbnail-desktop-image-1"
-            class="product-thumbnail-imagproduct-thumbnail-image--active"
-          />
-        </button>
-      </li>
-
-      <!--desktop thumbnail element-->
-      <li class="product-thumbnail">
-        <button
-          class="product-thumbnail-button"
-          id="product-thumbnail-desktop-button-2"
-          type="button"
-        >
-          <img
-            src="./images/image-product-2-thumbnail.jpg"
-            alt="product 2 thumbnail"
-            id="product-thumbnail-desktop-image-2"
-            class="product-thumbnail-image"
-           />
-        </button>
-      </li>
-
-      <!--desktop thumbnail element-->
-      <li class="product-thumbnail">
-        <button
-          class="product-thumbnail-button"
-          id="product-thumbnail-desktop-button-3"
-          type="button"
-        >
-          <img
-            src="./images/image-product-3-thumbnail.jpg"
-            alt="product 3 thumbnail"
-            id="product-thumbnail-image-3"
-            class="product-thumbnail-desktop-image"
-          />
-        </button>
-      </li>
-
-      <!--desktop thumbnail element-->
-      <li class="product-thumbnail">
-        <button
-          class="product-thumbnail-button"
-          id="product-thumbnail-desktop-button-4"
-          type="button"
-        >
-          <img
-            src="./images/image-product-4-thumbnail.jpg"
-            alt="product 4 thumbnail"
-            id="product-thumbnail-desktop-image-4"
-            class="product-thumbnail-image"
-          />
-        </button>
-      </li>
-    </ul>
-  `;
-}
-
-/**
- * NavigationList component used on the header on the desktop and on the aside menu on mobile and tablets
- * Totally presentational on this app
- */
-function NavigationList() {
-  return `
-    <!--navigation list-->
-    <ul class="navigation-list">
-      <!--navigation item-->
-      <li class="navigation-item">
-        <a href="#" id="header-nav-link-collections">Collections</a>
-      </li>
-
-      <!--navigation item-->
-      <li class="navigation-item">
-        <a href="#" id="header-nav-link-men">Men</a>
-      </li>
-
-      <!--navigation item-->
-      <li class="navigation-item">
-        <a href="#" id="header-nav-link-women">Women</a>
-      </li>
-
-      <!--navigation item-->
-      <li class="navigation-item">
-        <a href="#" id="header-nav-link-about">About</a>
-      </li>
-
-      <!--navigation item-->
-      <li class="navigation-item">
-        <a href="#" id="header-nav-link-contact">Contact</a>
-      </li>
-    </ul>
-  `;
-}
-
-/**
- * NavigationArrows component is used on mobile and tablets as the main image slider, and used on desktop on lightbox image slider
- * positioned absoulute and centered vertically to the parent element
- */
-function NavigationArrows() {
-  return `
-    <!--navigation arrows-->
-    <div
-      class="navigation-arrows"
-      role="group"
-      aria-label="navigation-arrows-container"
-    >
-      <!--navigation previous arrow-->
-      <button
-        type="button"
-        id="image-prev-button"
-        class="navigation-arrows-button"
-      >
-        <span
-           class="navigation-arrows-button-iconavigation-arrows-button-icon--previous"
-           role="img"
-           aria-label="previous-button-icon"
-        >
-         </span>
-       </button>
-
-      <!--navigation next arrow-->
-      <button
-        type="button"
-        id="image-next-button"
-        class="navigation-arrows-button"
-      >
-        <span
-          class="navigation-arrows-button-iconavigation-arrows-button-icon--next"
-          role="img"
-          aria-label="next-button-icon"
-        >
-        </span>
-      </button>
-    </div>
-  `;
 }

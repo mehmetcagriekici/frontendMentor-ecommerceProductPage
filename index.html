@@ -35,34 +35,30 @@
 
         <!--header navigation - only visible on the desktop-->
         <nav class="header-navigation" id="header-navigation">
-          <!--navigation list coming from the NavigationList component from the script--
+          <!--navigation list-->
           <ul class="navigation-list">
-            !--navigation item--
+            <!--navigation item-->
             <li class="navigation-item">
               <a href="#" id="header-nav-link-collections">Collections</a>
             </li>
 
-            !--navigation item--
             <li class="navigation-item">
               <a href="#" id="header-nav-link-men">Men</a>
             </li>
 
-            !--navigation item--
             <li class="navigation-item">
               <a href="#" id="header-nav-link-women">Women</a>
             </li>
 
-            !--navigation item--
             <li class="navigation-item">
               <a href="#" id="header-nav-link-about">About</a>
             </li>
 
-            !--navigation item--
             <li class="navigation-item">
               <a href="#" id="header-nav-link-contact">Contact</a>
             </li>
           </ul>
-        --></nav>
+        </nav>
       </div>
 
       <!--cart and profile-->
@@ -99,41 +95,42 @@
     <main>
       <!--product image - slider on mobile and tablet-->
       <section class="product-images" id="product-images">
-        <!--navigation arrows coming from the NavigationArrows component from the script
+        <!--navigation arrows-->
         <div
           class="navigation-arrows"
           role="group"
           aria-label="navigation-arrows-container"
         >
-          !--navigation previous arrow--
+          <!--navigation previous arrow-->
           <button
             type="button"
-            id="image-prev-button"
+            id="image-prev-button-screen"
             class="navigation-arrows-button"
           >
             <span
               class="navigation-arrows-button-icon navigation-arrows-button-icon--previous"
+              id="image-prev-icon-screen"
               role="img"
               aria-label="previous-button-icon"
             >
             </span>
           </button>
 
-          !--navigation next arrow--
+          <!--navigation next arrow-->
           <button
             type="button"
-            id="image-next-button"
+            id="image-next-button-screen"
             class="navigation-arrows-button"
           >
             <span
               class="navigation-arrows-button-icon navigation-arrows-button-icon--next"
+              id="image-next-icon-screen"
               role="img"
               aria-label="next-button-icon"
             >
             </span>
           </button>
         </div>
-      -->
 
         <!--images-->
         <ul class="images-list">
@@ -152,7 +149,6 @@
             />
           </li>
 
-          <!--image item-->
           <li
             class="product-image-container product-image-container--next"
             id="product-image-container-2"
@@ -164,7 +160,6 @@
             />
           </li>
 
-          <!--image item-->
           <li
             class="product-image-container product-image-container--next"
             id="product-image-container-3"
@@ -176,7 +171,6 @@
             />
           </li>
 
-          <!--image item-->
           <li
             class="product-image-container product-image-container--next"
             id="product-image-container-4"
@@ -193,81 +187,74 @@
       <!--desktop product showcase section - only visible on desktops-->
       <article class="desktop-product-showcase">
         <!--showcase-->
-        <figure class="desktop-product-image" id="">
+        <figure class="desktop-product-image">
           <img
             src="./images/image-product-1.jpg"
-            alt="product 1 image"
+            alt="product image 1"
             id="current-desktop-product-image"
           />
         </figure>
 
-        <!--thumbnails list is cpming from the ThumbnailsList component from the script
+        <!--thumbnails list-->
         <ul class="thumbnails-list" id="desktop-thumbnails-list">
-          !--desktop thumbnail element--
+          <!--desktop thumbnail element-->
           <li class="product-thumbnail">
             <button
-              class="product-thumbnail-button product-thumbnail-button--active"
-              id="product-thumbnail-desktop-button-1"
+              class="desktop-product-thumbnail-button product-thumbnail-button product-thumbnail-button--active"
               type="button"
             >
               <img
                 src="./images/image-product-1-thumbnail.jpg"
                 alt="product 1 thumbnail"
-                id="product-thumbnail-desktop-image-1"
-                class="product-thumbnail-image product-thumbnail-image--active"
+                id="product-thumbnail-desktop-1"
+                class="desktop-product-thumbnail-image product-thumbnail-image product-thumbnail-image--active"
               />
             </button>
           </li>
 
-          !--desktop thumbnail element--
           <li class="product-thumbnail">
             <button
-              class="product-thumbnail-button"
-              id="product-thumbnail-desktop-button-2"
+              class="desktop-product-thumbnail-button product-thumbnail-button"
               type="button"
             >
               <img
                 src="./images/image-product-2-thumbnail.jpg"
                 alt="product 2 thumbnail"
-                id="product-thumbnail-desktop-image-2"
-                class="product-thumbnail-image"
+                id="product-thumbnail-desktop-2"
+                class="desktop-product-thumbnail-image product-thumbnail-image"
               />
             </button>
           </li>
 
-          !--desktop thumbnail element--
           <li class="product-thumbnail">
             <button
-              class="product-thumbnail-button"
-              id="product-thumbnail-desktop-button-3"
+              class="desktop-product-thumbnail-button product-thumbnail-button"
               type="button"
             >
               <img
                 src="./images/image-product-3-thumbnail.jpg"
                 alt="product 3 thumbnail"
-                id="product-thumbnail-image-3"
-                class="product-thumbnail-desktop-image"
+                id="product-thumbnail-desktop-3"
+                class="desktop-product-thumbnail-image product-thumbnail-desktop-image"
               />
             </button>
           </li>
 
-          !--desktop thumbnail element--
           <li class="product-thumbnail">
             <button
-              class="product-thumbnail-button"
-              id="product-thumbnail-desktop-button-4"
+              class="desktop-product-thumbnail-button product-thumbnail-button"
               type="button"
             >
               <img
                 src="./images/image-product-4-thumbnail.jpg"
                 alt="product 4 thumbnail"
-                id="product-thumbnail-desktop-image-4"
-                class="product-thumbnail-image"
+                id="product-thumbnail-desktop-4"
+                class="desktop-product-thumbnail-image product-thumbnail-image"
               />
             </button>
           </li>
         </ul>
-      --></article>
+      </article>
 
       <!--product details-->
       <article class="product-details">
@@ -357,34 +344,30 @@
 
       <!--navigation-->
       <nav class="navigation" id="aside-navigation">
-        <!--navigation list is coming from the NavigationList component from the script
+        <!--navigation list-->
         <ul class="navigation-list">
-          !--navigation item--
+          <!--navigation item-->
           <li class="navigation-item">
             <a href="#" id="nav-link-collections">Collections</a>
           </li>
 
-          !--navigation item--
           <li class="navigation-item">
             <a href="#" id="nav-link-men">Men</a>
           </li>
 
-          !--navigation item--
           <li class="navigation-item">
             <a href="#" id="nav-link-women">Women</a>
           </li>
 
-          !--navigation item--
           <li class="navigation-item">
             <a href="#" id="nav-link-about">About</a>
           </li>
 
-          !--navigation item--
           <li class="navigation-item">
             <a href="#" id="nav-link-contact">Contact</a>
           </li>
         </ul>
-      --></nav>
+      </nav>
     </aside>
 
     <!--background filter-->
@@ -402,116 +385,110 @@
 
         <!--main imgage-->
         <figure class="lightbox-main-image" id="light-box-main-image-container">
-          <!--navigation arrows is coming from the NavigationArrows component from the script
+          <!--navigation arrows-->
           <div
             class="navigation-arrows"
             role="group"
             aria-label="navigation-arrows-container"
           >
-            !--navigation previous arrow--
+            <!--navigation previous arrow-->
             <button
               type="button"
-              id="image-prev-button--lightbox"
+              id="image-prev-button-lightbox"
               class="navigation-arrows-button"
             >
               <span
                 class="navigation-arrows-button-icon navigation-arrows-button-icon--previous"
+                id="image-prev-icon-lightbox"
                 role="img"
                 aria-label="previous-button-icon"
               >
               </span>
             </button>
 
-            !--navigation next arrow--
+            <!--navigation next arrow-->
             <button
               type="button"
-              id="image-next-button--lightbox"
+              id="image-next-button-lightbox"
               class="navigation-arrows-button"
             >
               <span
                 class="navigation-arrows-button-icon navigation-arrows-button-icon--next"
+                id="image-next-icon-lightbox"
                 role="img"
                 aria-label="next-button-icon"
               >
               </span>
             </button>
           </div>
-        -->
 
           <img
             src="./images/image-product-1.jpg"
             alt="product 1 main image"
-            id="lightbox-main-image"
+            id="current-lightbox-product-image"
           />
         </figure>
 
-        <!--thumbnails list is coming from the ThumbnailsList component from the script
+        <!--thumbnails list-->
         <ul class="thumbnails-list" id="lightbox-thumbnails-list">
-          !--lightbox thumbnail element--
+          <!--lightbox thumbnail element-->
           <li class="product-thumbnail">
             <button
-              class="product-thumbnail-button product-thumbnail-button--active"
-              id="product-thumbnail-lightbox-button-1"
+              class="lightbox-product-thumbnail-button product-thumbnail-button product-thumbnail-button--active"
               type="button"
             >
               <img
                 src="./images/image-product-1-thumbnail.jpg"
                 alt="product 1 thumbnail"
-                id="product-thumbnail-lightbox-image-1"
-                class="product-thumbnail-image product-thumbnail-lightbox-image--active"
+                id="product-thumbnail-lightbox-1"
+                class="lightbox-product-thumbnail-image product-thumbnail-image product-thumbnail-image--active"
               />
             </button>
           </li>
 
-          !--lightbox thumbnail element--
           <li class="product-thumbnail">
             <button
-              class="product-thumbnail-button"
-              id="product-thumbnail-lightbox-button-2"
+              class="lightbox-product-thumbnail-button product-thumbnail-button"
               type="button"
             >
               <img
                 src="./images/image-product-2-thumbnail.jpg"
                 alt="product 2 thumbnail"
-                id="product-thumbnail-lightbox-image-2"
-                class="product-thumbnail-image"
+                id="product-thumbnail-lightbox-2"
+                class="lightbox-product-thumbnail-image product-thumbnail-image"
               />
             </button>
           </li>
 
-          !--lightbox thumbnail element--
           <li class="product-thumbnail">
             <button
-              class="product-thumbnail-button"
-              id="product-thumbnail-lightbox-button-3"
+              class="lightbox-product-thumbnail-button product-thumbnail-button"
               type="button"
             >
               <img
                 src="./images/image-product-3-thumbnail.jpg"
                 alt="product 3 thumbnail"
-                id="product-thumbnail-lightbox-image-3"
-                class="product-thumbnail-image"
+                id="product-thumbnail-lightbox-3"
+                class="lightbox-product-thumbnail-image product-thumbnail-image"
               />
             </button>
           </li>
 
-          !--lightbox thumbnail element--
           <li class="product-thumbnail">
             <button
-              class="product-thumbnail-button"
-              id="product-thumbnail-lightbox-button-4"
+              class="lightbox-product-thumbnail-button product-thumbnail-button"
               type="button"
             >
               <img
                 src="./images/image-product-4-thumbnail.jpg"
                 alt="product 4 thumbnail"
-                id="product-thumbnail-lightbox-image-4"
-                class="product-thumbnail-image"
+                id="product-thumbnail-lightbox-4"
+                class="lightbox-product-thumbnail-image product-thumbnail-image"
               />
             </button>
           </li>
         </ul>
-      --></div>
+      </div>
     </dialog>
 
     <!--cart modal-->

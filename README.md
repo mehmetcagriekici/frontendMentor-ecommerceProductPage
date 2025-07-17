@@ -27,3 +27,6 @@
 
 9. Event Delegation
    https://javascript.info/event-delegation
+
+10. CSS pointer-events
+    https://developer.mozilla.org/en-US/docs/Web/CSS/pointer-events
