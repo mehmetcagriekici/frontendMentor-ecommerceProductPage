@@ -125,7 +125,7 @@
 
   /*lightbox modal*/
   --lightbox-modal-width: clamp(55rem, 38.19vw, 97.7rem);
-  --lightbox-modal-height: clamp(72.2rem, 50.13vw, 128.3rem);
+  --lightbox-modal-height: clamp(72.2rem, 50.13vw, 108.3rem);
   --lightbox-image-size: clamp(55rem, 38.19vw, 97.7rem);
   --lightbox-close-button-size: clamp(2rem, 1.39vw, 3.6rem);
 
@@ -311,8 +311,8 @@ hr {
 }
 
 /*highlight divider*/
-.navigation-item a:hover::after,
-.navigation-item a:active::after {
+.navigation-item-desktop a:hover::after,
+.navigation-item-desktop a:active::after {
   content: "";
 
   position: absolute;
